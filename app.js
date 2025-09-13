@@ -4,7 +4,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 
-import serviceAreaRoute from './routes/serviceAreaRoutes.js';
+import serviceAreaRoute from './routes/ServiceAreaRoutes.js';
 import customerRoute from './routes/CustomerRoutes.js';
 import connectionRoute from './routes/ConnectionRoutes.js';
 import teamRoute from './routes/teamRoutes.js';

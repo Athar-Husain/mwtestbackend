@@ -7,7 +7,7 @@ import bodyParser from 'body-parser';
 // Load environment variables
 
 // Import routes
-import serviceAreaRoute from './routes/serviceAreaRoutes.js';
+import serviceAreaRoute from './routes/ServiceAreaRoutes.js';
 import customerRoute from './routes/CustomerRoutes.js';
 import connectionRoute from './routes/ConnectionRoutes.js';
 import teamRoute from './routes/teamRoutes.js';

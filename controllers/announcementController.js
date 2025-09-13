@@ -1,4 +1,4 @@
-import Announcement from "../models/Announcement.js";
+import Announcement from '../models/Announcement.model.js';
 
 // Create new announcement
 export const createAnnouncement = async (req, res) => {
@@ -20,10 +20,10 @@ export const createAnnouncement = async (req, res) => {
 
     res
       .status(201)
-      .json({ message: "Announcement created successfully", announcement });
+      .json({ message: 'Announcement created successfully', announcement });
   } catch (error) {
-    console.error("Error creating announcement:", error);
-    res.status(500).json({ message: "Failed to create announcement", error });
+    console.error('Error creating announcement:', error);
+    res.status(500).json({ message: 'Failed to create announcement', error });
   }
 };
 
@@ -36,7 +36,7 @@ export const getAnnouncements = async (req, res) => {
 
     if (audience) filter.audience = audience;
     if (region) filter.region = region;
-    if (isActive !== undefined) filter.isActive = isActive === "true";
+    if (isActive !== undefined) filter.isActive = isActive === 'true';
 
     const announcements = await Announcement.find(filter).sort({
       startDate: -1,
@@ -44,8 +44,8 @@ export const getAnnouncements = async (req, res) => {
 
     res.status(200).json(announcements);
   } catch (error) {
-    console.error("Error fetching announcements:", error);
-    res.status(500).json({ message: "Failed to fetch announcements", error });
+    console.error('Error fetching announcements:', error);
+    res.status(500).json({ message: 'Failed to fetch announcements', error });
   }
 };
 
@@ -54,12 +54,12 @@ export const getAnnouncementById = async (req, res) => {
   try {
     const announcement = await Announcement.findById(req.params.id);
     if (!announcement)
-      return res.status(404).json({ message: "Announcement not found" });
+      return res.status(404).json({ message: 'Announcement not found' });
 
     res.status(200).json(announcement);
   } catch (error) {
-    console.error("Error fetching announcement:", error);
-    res.status(500).json({ message: "Failed to fetch announcement", error });
+    console.error('Error fetching announcement:', error);
+    res.status(500).json({ message: 'Failed to fetch announcement', error });
   }
 };
 
@@ -75,12 +75,12 @@ export const updateAnnouncement = async (req, res) => {
     );
 
     if (!announcement)
-      return res.status(404).json({ message: "Announcement not found" });
+      return res.status(404).json({ message: 'Announcement not found' });
 
-    res.status(200).json({ message: "Announcement updated", announcement });
+    res.status(200).json({ message: 'Announcement updated', announcement });
   } catch (error) {
-    console.error("Error updating announcement:", error);
-    res.status(500).json({ message: "Failed to update announcement", error });
+    console.error('Error updating announcement:', error);
+    res.status(500).json({ message: 'Failed to update announcement', error });
   }
 };
 
@@ -89,11 +89,11 @@ export const deleteAnnouncement = async (req, res) => {
   try {
     const announcement = await Announcement.findByIdAndDelete(req.params.id);
     if (!announcement)
-      return res.status(404).json({ message: "Announcement not found" });
+      return res.status(404).json({ message: 'Announcement not found' });
 
-    res.status(200).json({ message: "Announcement deleted successfully" });
+    res.status(200).json({ message: 'Announcement deleted successfully' });
   } catch (error) {
-    console.error("Error deleting announcement:", error);
-    res.status(500).json({ message: "Failed to delete announcement", error });
+    console.error('Error deleting announcement:', error);
+    res.status(500).json({ message: 'Failed to delete announcement', error });
   }
 };

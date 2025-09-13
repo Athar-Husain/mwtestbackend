@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 import jwt from 'jsonwebtoken';
 import Team from '../models/Team.model.js';
 import { generateOtp } from '../utils/otp.js';
-import ServiceArea from '../models/ServiceArea.model.js';
+// import ServiceArea from '../models/ServiceArea.model.js';
 
 const { sign } = jwt;
 const otpStore = new Map();

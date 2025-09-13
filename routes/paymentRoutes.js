@@ -4,7 +4,7 @@ import {
   createPaymentOrder,
   verifyPaymentWebhook,
   refundPaymentController,
-} from "../controllers/paymentController.js";
+} from "../controllers/paymentContoller.js";
 
 const router = express.Router();
 

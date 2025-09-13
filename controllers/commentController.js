@@ -1,4 +1,4 @@
-import Comment from '../models/Comment.js';
+import Comment from '../models/Comment.model.js';
 import { io } from '../config/socket.js'; // Assuming you're using socket.io for real-time updates
 
 // Create a new comment

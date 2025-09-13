@@ -110,7 +110,8 @@ export const getLoginStatus = asyncHandler(async (req, res) => {
     const verified = jwt.verify(token, JWT_SECRET);
     return res.json(!!verified);
   } catch (error) {
-    return res.status(200).json(false);
+    // console.log(object)
+    return res.status(200).json(false, error.message);
   }
 });
 

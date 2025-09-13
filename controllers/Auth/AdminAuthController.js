@@ -71,7 +71,6 @@ export const loginAdmin = async (req, res) => {
   }
 };
 
-
 export const updateAdmin = async (req, res) => {
   try {
     // Validate incoming data
@@ -116,7 +115,7 @@ export const getLoginStatus = async (req, res) => {
 
 import nodemailer from 'nodemailer';
 // import Admin from '../models/adminModel';
-import { generateOtp } from '../utils/otp';
+import { generateOtp } from '../../utils/otp.js';
 
 export const forgotPassword = async (req, res) => {
   try {

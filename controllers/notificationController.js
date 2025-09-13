@@ -1,4 +1,4 @@
-import Notification from '../models/Notification.js';
+import Notification from '../models/Notification.model.js';
 import { io } from '../config/socket.js'; // socket.io instance
 
 // 1. Create a new notification

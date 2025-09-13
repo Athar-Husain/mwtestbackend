@@ -1,7 +1,7 @@
-import Payment from '../models/paymentModel'; // adjust the path as necessary
+import Payment from '../models/Payment.model.js'; // adjust the path as necessary
 import Razorpay from 'razorpay'; // assuming you use this SDK
-import Customer from '../models/customerModel'; // assuming you have this model
-import Connection from '../models/connectionModel'; // assuming you have this model
+import Customer from '../models/Customer.model.js'; // assuming you have this model
+import Connection from '../models/Connection.model.js'; // assuming you have this model
 
 const razorpayInstance = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,

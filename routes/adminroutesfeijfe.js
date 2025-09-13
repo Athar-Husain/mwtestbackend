@@ -5,7 +5,7 @@ import {
   createTeamMember,
   updateTeamMember,
   deleteTeamMember,
-} from "../controllers/teamController.js";
+} from "../controllers/TeamController.js";
 
 import { authenticate } from "../middlewares/authMiddleware.js";
 import { authorizeRoles } from "../middlewares/roleMiddleware.js";

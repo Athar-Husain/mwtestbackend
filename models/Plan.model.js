@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import PlanCategory from './PlanCategory.model.js'; // Import the PlanCategory model
+// import PlanCategory from './PlanCategory.model.js'; // Import the PlanCategory model
 
 const planSchema = new Schema({
   name: { type: String, required: true },

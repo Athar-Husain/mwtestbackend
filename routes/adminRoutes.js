@@ -9,7 +9,7 @@ import {
   changePassword,
   logoutAdmin,
   getUserProfile,
-} from '../controllers/adminController.js';
+} from '../controllers/AdminController.js';
 
 import { AdminProtect } from '../middlewares/authMiddleware.js';
 

@@ -1,4 +1,4 @@
-import express from "express";
+import express from 'express';
 import {
   adminLogin,
   getAllTickets,
@@ -8,51 +8,49 @@ import {
   getReports,
   createAnnouncement,
   getAnnouncements,
-} from "../controllers/adminController.js";
+} from '../controllers/AdminController.js';
 
-import { authenticate } from "../middlewares/authMiddleware.js";
-import { authorizeRoles } from "../middlewares/roleMiddleware.js";
+import { authenticate } from '../middlewares/authMiddleware.js';
+import { authorizeRoles } from '../middlewares/roleMiddleware.js';
 
 const router = express.Router();
 
 // POST /api/admin/login
-router.post("/login", adminLogin);
+router.post('/login', adminLogin);
 
 // Routes below require admin authentication
-router.use(authenticate, authorizeRoles("admin", "superadmin"));
+router.use(authenticate, authorizeRoles('admin', 'superadmin'));
 
 // GET /api/admin/tickets
-router.get("/tickets", getAllTickets);
+router.get('/tickets', getAllTickets);
 
 // PUT /api/admin/tickets/:ticketId/reassign
-router.put("/tickets/:ticketId/reassign", reassignTicket);
+router.put('/tickets/:ticketId/reassign', reassignTicket);
 
 // GET /api/admin/users
-router.get("/users", getAllUsers);
+router.get('/users', getAllUsers);
 
 // GET /api/admin/teams
-router.get("/teams", getAllTeams);
+router.get('/teams', getAllTeams);
 
 // GET /api/admin/reports
-router.get("/reports", getReports);
+router.get('/reports', getReports);
 
 // POST /api/admin/announcements
-router.post("/announcements", createAnnouncement);
+router.post('/announcements', createAnnouncement);
 
 // GET /api/admin/announcements
-router.get("/announcements", getAnnouncements);
+router.get('/announcements', getAnnouncements);
 
 // export default router;
 
-
-import express from 'express';
 import {
   getAdmins,
   getAdminById,
   createAdmin,
   updateAdmin,
   deleteAdmin,
-} from '../controllers/adminController.js';
+} from '../controllers/AdminController.js';
 
 import { authenticate } from '../middlewares/authMiddleware.js';
 import { authorizeRoles } from '../middlewares/roleMiddleware.js';

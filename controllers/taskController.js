@@ -1,5 +1,4 @@
-const router = require("express").Router();
-import { updateOne } from "../../models/Project";
+import { updateOne } from '../models/Project.model.js';
 import Task, {
   findOne,
   findOneAndUpdate,
@@ -7,22 +6,22 @@ import Task, {
   create as _create,
   find,
   deleteMany,
-} from "../../models/Task";
+} from '../models/Task.model.js';
 import Attachment, {
   findOne as _findOne,
   deleteOne,
   deleteMany as _deleteMany,
-} from "../../models/Attachment";
-import { deleteMany as __deleteMany } from "../../models/Comment";
+} from '../models/Attachment.model.js';
+import { deleteMany as __deleteMany } from '../models/Comment.model.js';
 import Todo, {
   deleteOne as _deleteOne,
   deleteMany as ___deleteMany,
-} from "../../models/Todo";
-import { required } from "../auth";
-import { getNotNullFields, getFileName } from "../../utils";
-import { upload, getImageName } from "../../config/storage";
-import { upload as _upload, remove as _remove } from "../../config/s3";
-import { Types } from "mongoose";
+} from '../../models/Todo';
+import { required } from '../auth';
+import { getNotNullFields, getFileName } from '../../utils';
+import { upload, getImageName } from '../../config/storage';
+import { upload as _upload, remove as _remove } from '../../config/s3';
+import { Types } from 'mongoose';
 
 const create = async (req, res, next) => {
   try {
@@ -48,16 +47,16 @@ const get = async (req, res, next) => {
   try {
     const data = await Promise.all([
       findOne({ _id: req.params.id })
-        .populate("attachments")
-        .populate("todoGroup.list")
-        .populate("members", "firstName , lastName , avatar")
-        .populate("attachments", "type , src , name , size")
+        .populate('attachments')
+        .populate('todoGroup.list')
+        .populate('members', 'firstName , lastName , avatar')
+        .populate('attachments', 'type , src , name , size')
         .populate({
-          path: "comments",
+          path: 'comments',
           populate: [
-            { path: "user", select: { firstName: 1, lastName: 1, avatar: 1 } },
+            { path: 'user', select: { firstName: 1, lastName: 1, avatar: 1 } },
             {
-              path: "attachments",
+              path: 'attachments',
               select: { src: 1, type: 1, name: 1, size: 1 },
             },
           ],
@@ -82,8 +81,8 @@ const update = async (req, res, next) => {
       archived,
       desc,
     });
-    if (Array.isArray(tags) && tags.length === 0) data["tags"] = [];
-    if (Array.isArray(members)) data["members"] = members;
+    if (Array.isArray(tags) && tags.length === 0) data['tags'] = [];
+    if (Array.isArray(members)) data['members'] = members;
     const task = await findOneAndUpdate(
       { _id: req.params.id },
       { $set: data },
@@ -131,7 +130,7 @@ const uploadFiles = async (req, res, next) => {
     const requests = [];
     const newReq = [];
     for (const file of req.files) {
-      requests.push(_upload(file, "attachment", getImageName(file)));
+      requests.push(_upload(file, 'attachment', getImageName(file)));
     }
     const uploadedFiles = await Promise.all(requests);
     uploadedFiles.forEach((file, index) => {
@@ -189,8 +188,8 @@ const createTodoGroup = async (req, res, next) => {
 const updateTodoGroup = async (req, res, next) => {
   try {
     await _updateOne(
-      { _id: req.params.id, "todoGroup._id": req.params.todoGroup },
-      { $set: { "todoGroup.$.title": req.body.title } }
+      { _id: req.params.id, 'todoGroup._id': req.params.todoGroup },
+      { $set: { 'todoGroup.$.title': req.body.title } }
     );
     res.status(200).json({ ok: 1 });
   } catch (e) {
@@ -202,8 +201,8 @@ const newTodo = async (req, res, next) => {
   try {
     const todo = await new Todo({ text: req.body.text }).save();
     await _updateOne(
-      { _id: req.params.id, "todoGroup._id": req.params.todoGroup },
-      { $push: { "todoGroup.$.list": todo._id } }
+      { _id: req.params.id, 'todoGroup._id': req.params.todoGroup },
+      { $push: { 'todoGroup.$.list': todo._id } }
     );
     res.status(200).json(todo);
   } catch (e) {
@@ -216,8 +215,8 @@ const deleteTodo = async (req, res, next) => {
     await Promise.all([
       _deleteOne({ _id: req.params.todo }),
       _updateOne(
-        { _id: req.params.id, "todoGroup.list._id": req.params.todo },
-        { $pull: { "todoGroup.list.$": req.params.todo } }
+        { _id: req.params.id, 'todoGroup.list._id': req.params.todo },
+        { $pull: { 'todoGroup.list.$': req.params.todo } }
       ),
     ]);
     res.status(200).json({ ok: 1 });
@@ -270,18 +269,18 @@ const remove = async (req, res, next) => {
   }
 };
 
-router.post("/", required, create);
-router.get("/:id", required, get);
-router.put("/:id", required, update);
-router.post("/:id/duplicate", required, duplicate);
-router.put("/update/multi", required, updateMultiple);
-router.put("/:id/file", [required, upload.array("file")], uploadFiles);
-router.put("/:id/todoGroup", required, createTodoGroup);
-router.put("/:id/todoGroup/:todoGroup", required, updateTodoGroup);
-router.put("/:id/newTodo/:todoGroup", required, newTodo);
-router.delete("/:id/todoGroup/:todoGroup", required, deleteTodoGroup);
-router.delete("/:id/todo/:todo", required, deleteTodo);
-router.delete("/:id/file/:file", required, removeAttachment);
-router.put("/delete/tasks", required, remove);
+router.post('/', required, create);
+router.get('/:id', required, get);
+router.put('/:id', required, update);
+router.post('/:id/duplicate', required, duplicate);
+router.put('/update/multi', required, updateMultiple);
+router.put('/:id/file', [required, upload.array('file')], uploadFiles);
+router.put('/:id/todoGroup', required, createTodoGroup);
+router.put('/:id/todoGroup/:todoGroup', required, updateTodoGroup);
+router.put('/:id/newTodo/:todoGroup', required, newTodo);
+router.delete('/:id/todoGroup/:todoGroup', required, deleteTodoGroup);
+router.delete('/:id/todo/:todo', required, deleteTodo);
+router.delete('/:id/file/:file', required, removeAttachment);
+router.put('/delete/tasks', required, remove);
 
 export default router;

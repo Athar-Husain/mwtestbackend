@@ -1,4 +1,4 @@
-import Attachment from '../models/Attachment.js';
+import Attachment from '../models/Attachment.model.js';
 import { io } from '../config/socket.js'; // Assuming you're using socket.io for real-time updates
 import fs from 'fs'; // For file handling (if you're using local file storage)
 
